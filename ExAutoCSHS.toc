@@ -1,0 +1,5 @@
+## Interface: 11200
+## Title: ExAutoCSHS
+## Notes: A macro for automatically alternating Crusader/Holy strike to maintain maximum uptime on Zeal and Holy Might
+ExAutoCSHS.lua 
+ExAutoCSHS.xml

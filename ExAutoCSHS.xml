@@ -1,0 +1,30 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Script file="ExAutoCSHS.lua" />
+   <GameTooltip name="EzDTooltip" frameStrata="TOOLTIP" hidden="true" inherits="GameTooltipTemplate">
+   <Scripts>
+      <OnLoad>
+         this:SetOwner(UIParent, "ANCHOR_NONE");
+      </OnLoad>
+   </Scripts>
+   </GameTooltip>
+   <Frame name="ExAutoCSHSCheckMonitorFrame">
+
+   <Scripts>
+
+      <OnLoad>
+         this:RegisterEvent("CHAT_MSG_SPELL_SELF_DAMAGE");  
+         this:RegisterEvent("PLAYER_ENTERING_WORLD"); 
+		
+      </OnLoad>
+
+      <OnEvent>
+         if (event == "CHAT_MSG_SPELL_SELF_DAMAGE") then ExAutoCSHS:OnSpellCast(arg1); end
+         if (event == "PLAYER_ENTERING_WORLD") then  ExAutoCSHS:Onload(); end
+ 
+      </OnEvent>
+
+    </Scripts>
+
+</Frame>
+
+</Ui>
