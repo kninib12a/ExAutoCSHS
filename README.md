@@ -24,7 +24,7 @@ Example:
 
 will open with HS, priorize building zeal until 3 stacks , then proceeds only doing CS when Zeal needs a refresh 
 this results most of the time in :
-HS-CS-CS-HS-CS-HS-HS-HS-CS-HS-HS-HS-CS-HS-HS-HS... 
+HS-CS-CS-HS-CS-HS-HS-HS-CS-HS-HS-HS-CS-HS-HS-HS...
 ----1-2-----3--starts doing 3 HS to CS 
 
 /AutoCS openHS prioZeal exorcism
