@@ -1,6 +1,8 @@
 # ExAutoCSHS
 An Addon for TurtleWoW for automatically alternating Crusader/Holy strike to maintain maximum uptime on the Zeal / Holy Might buffs 
-This relies on CombatLog entries and internal timers, so even if you break rotation it'll manage to keep up with buffs
+This relies on CombatLog entries and internal timers, so even if you break rotation it'll manage to keep up with buffs.
+
+Additionally it will use lower ranks of CS/HS depending on mana availability.
 
 Usage : Create a macro with:
 /AutoCS [openCS/openHS/openAuto] [moreCS/moreHS/moreAuto] [prioZeal] [exorcism]
