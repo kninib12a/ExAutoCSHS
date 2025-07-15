@@ -90,13 +90,13 @@ function ExAutoCSHS:MoreHS(PrioMode)
 	 return hasoffhand
 end
 function ExAutoCSHS:WarnHS()
-    PlaySound("AuctionWindowClose", "master");  
+    -- PlaySound("AuctionWindowClose", "master");  
 end
 function ExAutoCSHS:WarnCS()
-    PlaySound("AuctionWindowOpen", "master");
+    -- PlaySound("AuctionWindowOpen", "master");
 end
 function ExAutoCSHS:Warn()
-    PlaySound("ITEM_REPAIR", "master");
+    -- PlaySound("ITEM_REPAIR", "master");
 end
 function ExAutoCSHS:OnSpellCast(arg1)
                 if (string.find(arg1, "Holy Strike") ~= nil  ) then 
