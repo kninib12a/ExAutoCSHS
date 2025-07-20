@@ -225,6 +225,7 @@ if(UnitMana("player")<40 and UnitMana("player")>=20) then CastSpellByName("Crusa
             end 
         end
     end
+ CastSpellByName("Crusader Strike",false)
  end
  
 function ExAutoCSHS:Excorcism()
@@ -240,8 +241,7 @@ if(UnitMana("player")<135 and UnitMana("player")>=85) then CastSpellByName("Exor
         end
     end
  end
- 
-
+ CastSpellByName("Exorcism",false) 
  if (lm) then ExAutoCSHS:Warn() end
 end
 
@@ -266,7 +266,7 @@ end
 end
 end
 end
-
+CastSpellByName("Holy Strike") 
  if (lm) then ExAutoCSHS:Warn() end
 end
 
