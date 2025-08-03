@@ -4,7 +4,7 @@ ExAutoCSHS = {
   ver = 1, 
   Class = "",
   Player = "", 
-
+  Loaded = false,
   CurrentOpenMode =0,
   CurrentPrioMode =0,
   CurrentPrioZeal =0, 
@@ -34,8 +34,10 @@ function ExAutoCSHS:Onload()
 	end
 	ExAutoCSHS.Player = (UnitName("player").." of "..GetCVar("realmName"))
  
-
-  	DEFAULT_CHAT_FRAME:AddMessage("ExAutoCSHS v" .. ExAutoCSHS.ver .. " loaded \n use /AutoCS [openCS/openHS/openAuto] [moreCS/moreHS/moreAuto] [prioZeal] [exorcism]", 0.9, 0.8, 0.0); 
+	if not ExAutoCSHS.Loaded then
+  		DEFAULT_CHAT_FRAME:AddMessage("ExAutoCSHS v" .. ExAutoCSHS.ver .. " loaded \n use /AutoCS [openCS/openHS/openAuto] [moreCS/moreHS/moreAuto] [prioZeal] [exorcism]", 0.9, 0.8, 0.0); 
+		ExAutoCSHS.Loaded = true
+	end
 	SLASH_exCSHS1 = "/AutoCS" 
 	SLASH_exCSHS2 = "/AutoHS" 
 	SlashCmdList["exCSHS"] = function(msg) ExAutoCSHS:EvalCommand(msg)  end
