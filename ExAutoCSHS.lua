@@ -24,11 +24,7 @@ ExAutoCSHS = {
 
 }
 
-BINDING_HEADER_EZDISMOUNT  = "EzDismount";
-BINDING_NAME_EZDISMOUNT    = "Dismount";
 
- 
----------------------------------
 function ExAutoCSHS:Onload()
 
 	_ , ExAutoCSHS.Class = UnitClass("player");
