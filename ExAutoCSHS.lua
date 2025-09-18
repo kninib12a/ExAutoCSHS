@@ -1,46 +1,46 @@
 ExAutoCSHS = {
-	ver = 1, 
-	Class = "",
-	Player = "", 
-	Loaded = false,
-	CurrentOpenMode =0,
-	CurrentPrioMode =0,
-	CurrentPrioZeal =0, 
-	OpenModeAuto 	= 0,
-	OpenModeCS 	= 1,
-	OpenModeHS 	= 2,
-	PrioModeAuto 	= 0,
-	PrioModeCS 	= 1,
-	PrioModeHS 	= 2,
-	Zeal1T = {TS = 0, D = 0},
-	Zeal2T =  {TS = 0, D = 0},
-	Zeal3T =  {TS = 0, D = 0},
-	ZealSpacerT =  {TS = 0, D = 0},
-	MightT =  {TS = 0, D = 0},
-	MightSpacerT =  {TS = 0, D = 0}
+  ver = 1,
+  Class = "",
+  Player = "",
+  Loaded = false,
+  CurrentOpenMode =0,
+  CurrentPrioMode =0,
+  CurrentPrioZeal =0,
+  OpenModeAuto = 0,
+  OpenModeCS = 1,
+  OpenModeHS = 2,
+  PrioModeAuto = 0,
+  PrioModeCS = 1,
+  PrioModeHS = 2,
+  Zeal1T = {TS = 0, D = 0},
+  Zeal2T =  {TS = 0, D = 0},
+  Zeal3T =  {TS = 0, D = 0},
+  ZealSpacerT =  {TS = 0, D = 0},
+  MightT =  {TS = 0, D = 0},
+  MightSpacerT =  {TS = 0, D = 0}
 }
 
 
 function ExAutoCSHS:Onload()
+
 	_ , ExAutoCSHS.Class = UnitClass("player");
-	
+
 	if ExAutoCSHS.Class ~= "PALADIN" then
 		return
 	end
 	ExAutoCSHS.Player = (UnitName("player").." of "..GetCVar("realmName"))
  
 	if not ExAutoCSHS.Loaded then
-  		DEFAULT_CHAT_FRAME:AddMessage("ExAutoCSHS v" .. ExAutoCSHS.ver .. " loaded \n use /AutoCS [openCS/openHS/openAuto] [moreCS/moreHS/moreAuto] [prioZeal] [exorcism]", 0.9, 0.8, 0.0); 
+		DEFAULT_CHAT_FRAME:AddMessage("ExAutoCSHS v" .. ExAutoCSHS.ver .. " loaded \n use /AutoCS [openCS/openHS/openAuto] [moreCS/moreHS/moreAuto] [prioZeal] [exorcism]", 0.9, 0.8, 0.0);
 		ExAutoCSHS.Loaded = true
 	end
-	
-	SLASH_exCSHS1 = "/AutoCS" 
-	SLASH_exCSHS2 = "/AutoHS" 
+	SLASH_exCSHS1 = "/AutoCS"
+	SLASH_exCSHS2 = "/AutoHS"
 	SlashCmdList["exCSHS"] = function(msg) ExAutoCSHS:EvalCommand(msg)  end
- end
+end
  
  
-function ExAutoCSHS:EvalCommand(msg) 
+function ExAutoCSHS:EvalCommand(msg)
 	local opnm = 0
 	local prm = 0
 	local exo =   0
@@ -54,24 +54,24 @@ function ExAutoCSHS:EvalCommand(msg)
 	ExAutoCSHS:Eval( opnm, prm, pz,exo);  
 end
  
-function ExAutoCSHS:SetTimer(Timervals, Duration) 
+function ExAutoCSHS:SetTimer(Timervals, Duration)
 	Timervals.TS = GetTime()
 	Timervals.D = Duration
 end
 
-
 function ExAutoCSHS:GetTimer(Timervals)
-	ExAutoCSHS:Log(GetTime())
-	ExAutoCSHS:Log(Timervals.D)
-	ExAutoCSHS:Log(Timervals.TS)
+ExAutoCSHS:Log(GetTime())
+ExAutoCSHS:Log(Timervals.D)
+ExAutoCSHS:Log(Timervals.TS)
+
+ExAutoCSHS:Log(Timervals.D+Timervals.TS)
 	return GetTime() < Timervals.D+Timervals.TS
-  
 end
  
 function ExAutoCSHS:OpensWithCS(OpenMode,PrioMode)
 	if OpenMode == ExAutoCSHS.OpenModeCS then   return true end
 	if OpenMode == ExAutoCSHS.OpenModeHS then   return false end
-	
+
 	return not ExAutoCSHS:MoreHS(PrioMode)
 end
 
@@ -80,9 +80,9 @@ function ExAutoCSHS:HasOffhand()
 end
 
 function ExAutoCSHS:MoreHS(PrioMode)
+
 	if PrioMode == ExAutoCSHS.PrioModeCS then return false end
 	if PrioMode == ExAutoCSHS.PrioModeHS then return true end
-	
 	local hasoffhand = ExAutoCSHS:HasOffhand()
 	return hasoffhand
 end
@@ -100,20 +100,16 @@ function ExAutoCSHS:Warn()
 end
 
 function ExAutoCSHS:OnSpellCast(arg1)
-	if (string.find(arg1, "Holy Strike") ~= nil  ) then 
-		if not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then 
-			ExAutoCSHS:SetTimer(ExAutoCSHS.MightSpacerT , 13) ExAutoCSHS:Log("h timer set") 
-		end
-		ExAutoCSHS:SetMight(ExAutoCSHS.CurrentOpenMode,ExAutoCSHS.CurrentPrioMode)
-		ExAutoCSHS:WarnHS()
-	end
-	if (string.find(arg1, "Crusader Strike") ~= nil  ) then 
-		if EvalCSThrottle() then 
-			ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,23)   ExAutoCSHS:Log("zeal timer set")  
-		end
-		ExAutoCSHS:SetZeal(ExAutoCSHS.CurrentPrioMode)
-		ExAutoCSHS:WarnCS()
-	end
+    if (string.find(arg1, "Holy Strike") ~= nil  ) then
+        if not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then ExAutoCSHS:SetTimer(ExAutoCSHS.MightSpacerT , 13) ExAutoCSHS:Log("h timer set") end
+        ExAutoCSHS:SetMight(ExAutoCSHS.CurrentOpenMode,ExAutoCSHS.CurrentPrioMode)
+        ExAutoCSHS:WarnHS()
+    end
+    if (string.find(arg1, "Crusader Strike") ~= nil  ) then
+         if (  EvalCSThrottle() )  then ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,23)   ExAutoCSHS:Log("zeal timer set")  end
+        ExAutoCSHS:SetZeal(ExAutoCSHS.CurrentPrioMode)
+        ExAutoCSHS:WarnCS()
+    end
 end
  
  
@@ -123,31 +119,30 @@ function EvalCSThrottle()
 	end
 	if (ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode)) then
 		return true
-	end 
-	return true	
+	end
+	return true
 end
  
 function ExAutoCSHS:Log(m)
 	DEFAULT_CHAT_FRAME:AddMessage(m)
 end
 
-function ExAutoCSHS:Eval( )   
-	ExAutoCSHS:Eval(0,0,0,0) 
-end 
+function ExAutoCSHS:Eval( )   ExAutoCSHS:Eval(0,0,0,0) end
 
 function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)  
 	ExAutoCSHS.CurrentOpenMode= OpenMode  
-	ExAutoCSHS.CurrentPrioMode= PrioMode 
+	ExAutoCSHS.CurrentPrioMode= PrioMode
 	ExAutoCSHS.CurrentPrioZeal= PrioZeal
 	
-    if not ExAutoCSHS:CanCast() then
-        return false
-    end
+	if not ExAutoCSHS:CanCast() then
+		return false
+	end
 	
-	if ( ExAutoCSHS:GetHSCD() == 0 )then 
+	if ( ExAutoCSHS:GetHSCD() == 0 )then
 		local stacks = ExAutoCSHS:GetZeal()
 		if ( ExAutoCSHS:OpensWithCS(ExAutoCSHS.CurrentOpenMode,ExAutoCSHS.CurrentPrioMode) or ExAutoCSHS:GetMight()) then
-			if stacks > 0 then
+			if stacks>0 then
+	
 				if ExAutoCSHS:GetTimer(ExAutoCSHS.ZealSpacerT) then
 					if stacks < 3 and not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then
 						if ExAutoCSHS:GetMight() then
@@ -158,6 +153,8 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 						end
 					else
 						if ExAutoCSHS:GetTimer(ExAutoCSHS.MightSpacerT) and not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then
+							ExAutoCSHS:Log("currentPrioMode")
+							ExAutoCSHS:Log(ExAutoCSHS.CurrentPrioMode)
 							ExAutoCSHS:Log("InternalZorlenMiscTimer and not ExAutoCSHS:MoreHS()")
 							ExAutoCSHS:CS()
 						else
@@ -171,14 +168,15 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 			else
 				ExAutoCSHS:Log("no stacks")
 				ExAutoCSHS:CS()
-			end 
+			end
 		else
 			ExAutoCSHS:HS()
 		end
-    end
-
+	end
+	
 	if (UseExorcism) then
 		local targettype =  UnitCreatureType("target")
+		
 		if targettype == "Undead" or targettype == "Demon" then
 			ExAutoCSHS:Excorcism()
 		end
@@ -199,8 +197,9 @@ function ExAutoCSHS:GetZeal()
 end
 
 function ExAutoCSHS:SetZeal(PrioMode)
+ExAutoCSHS:Log("setzeal()")
     local zeal = ExAutoCSHS:GetZeal()
-    local u = 24 
+    local u = 24
     if ExAutoCSHS:MoreHS(PrioMode) then u = 30 end
     ExAutoCSHS:SetTimer(ExAutoCSHS.Zeal1T,u)
     if (zeal > 0) then
@@ -208,6 +207,7 @@ function ExAutoCSHS:SetZeal(PrioMode)
     end    
     if (zeal > 1) then
         ExAutoCSHS:SetTimer(ExAutoCSHS.Zeal3T,u)
+		ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,23)
     end
 end
 
@@ -216,7 +216,7 @@ function ExAutoCSHS:GetMight()
 end
 
 function ExAutoCSHS:SetMight(OpenMode,PrioMode)
-    local u = 14 
+    local u = 14
     if (ExAutoCSHS:OpensWithCS(OpenMode,PrioMode)) and not ExAutoCSHS:MoreHS(PrioMode) then u = 20 end
     ExAutoCSHS:SetTimer(ExAutoCSHS.MightT ,u)
 end
@@ -224,33 +224,33 @@ end
 function ExAutoCSHS:CS()
 	local lm = true
 	local s = true
-	if(UnitMana("player")<40 and UnitMana("player")>=20) then CastSpellByName("Crusader Strike(Rank 1)",false) 
+	if(UnitMana("player")<40 and UnitMana("player")>=20) then CastSpellByName("Crusader Strike(Rank 1)",false)
 		else if(UnitMana("player")<130) then CastSpellByName("Crusader Strike(Rank 2)",false)
 			else if(UnitMana("player")<170) then CastSpellByName("Crusader Strike(Rank 3)",false)
 				else if(UnitMana("player")<200) then CastSpellByName("Crusader Strike(Rank 4)",false)
 					else  if(UnitMana("player")>200) then CastSpellByName("Crusader Strike(Rank 5)",false) ; lm = false
 						else s= false
 					end
-				end 
+				end
 			end
 		end
-	end
 	CastSpellByName("Crusader Strike",false)
 end
  
 function ExAutoCSHS:Excorcism()
-	if(UnitMana("player")<135 and UnitMana("player")>=85) then CastSpellByName("Exorcism(Rank 1)",false) 
+ 
+	if(UnitMana("player")<135 and UnitMana("player")>=85) then CastSpellByName("Exorcism(Rank 1)",false)
 		else if(UnitMana("player")<180) then CastSpellByName("Exorcism(Rank 2)",false)
 			else if(UnitMana("player")<235) then CastSpellByName("Exorcism(Rank 3)",false)
 				else if(UnitMana("player")<285) then CastSpellByName("Exorcism(Rank 4)",false)
 					else  if(UnitMana("player")<345) then CastSpellByName("Exorcism(Rank 5)",false)  
-						else  CastSpellByName("Exorcism",false) end 
+						else  CastSpellByName("Exorcism",false) end
 					end
-				end 
+				end
 			end
 		end
 	end
-	CastSpellByName("Exorcism",false) 
+	CastSpellByName("Exorcism",false)
 	if (lm) then ExAutoCSHS:Warn() end
 end
 
@@ -258,51 +258,51 @@ end
 function ExAutoCSHS:HS()
 	local lm = true
 	local s = true
-	if(UnitMana("player")<12  and UnitMana("player")>=5) then CastSpellByName(" Holy Strike(Rank 1)") 
+	if(UnitMana("player")<12  and UnitMana("player")>=5) then CastSpellByName(" Holy Strike(Rank 1)")
 		else if(UnitMana("player")<25) then CastSpellByName("Holy Strike(Rank 2)")
-			else if(UnitMana("player")<38) then CastSpellByName("Holy Strike(Rank 3)")
-				else if(UnitMana("player")<51) then CastSpellByName("Holy Strike(Rank 4)")
-					else if(UnitMana("player")<64) then CastSpellByName("Holy Strike(Rank 5)")
-						else if(UnitMana("player")<75) then CastSpellByName("Holy Strike(Rank 6)")
-							else if(UnitMana("player")<90) then CastSpellByName("Holy Strike(Rank 7)")
-								else if(UnitMana("player")>90) then  CastSpellByName("Holy Strike(Rank 8)") ; lm=false
-									else s = false
-								end
-							end 
-						end
-					end
+		else if(UnitMana("player")<38) then CastSpellByName("Holy Strike(Rank 3)")
+		else if(UnitMana("player")<51) then CastSpellByName("Holy Strike(Rank 4)")
+		else if(UnitMana("player")<64) then CastSpellByName("Holy Strike(Rank 5)")
+		else if(UnitMana("player")<75) then CastSpellByName("Holy Strike(Rank 6)")
+		else if(UnitMana("player")<90) then CastSpellByName("Holy Strike(Rank 7)")
+		else if(UnitMana("player")>90) then  CastSpellByName("Holy Strike(Rank 8)") ; lm=false
+		else s = false
+	end
 				end
 			end
 		end
 	end
-	CastSpellByName("Holy Strike") 
-	if (lm) then 
-		ExAutoCSHS:Warn() 
 	end
+	end
+	end
+	CastSpellByName("Holy Strike")
+	if (lm) then ExAutoCSHS:Warn() end
 end
+
+ 
 
 function ExAutoCSHS:CanCast()
 	local u = "target"
-	return  HasFullControl() and  UnitCanAttack("player","target")   
+	return  HasFullControl() and  UnitCanAttack("player","target")  
 end
 
-function ExAutoCSHS:GetHSCD() 
+function ExAutoCSHS:GetHSCD()
 	local id = nil
+	
 	local SpellCount = 0
 	local ReturnName = nil  
-	
 	while "Holy Strike" ~=  ReturnName  do
 		SpellCount = SpellCount + 1
 		ReturnName, _ = GetSpellName(SpellCount, "spell")
 		if not ReturnName then
 			break
-		end 
-	end	
-		
+		end
+	end
+	
 	if "Holy Strike" ==  ReturnName then
 		id = SpellCount
-		ExAutoCSHS:Log( (ReturnName or "nil") .. id) 
+		ExAutoCSHS:Log( (ReturnName or "nil") .. id)
 	end
- 
+	
 	return GetSpellCooldown(id,"spell")
 end
