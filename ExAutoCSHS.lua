@@ -234,6 +234,7 @@ function ExAutoCSHS:CS()
 				end 
 			end
 		end
+	end
 	CastSpellByName("Crusader Strike",false)
 end
  
