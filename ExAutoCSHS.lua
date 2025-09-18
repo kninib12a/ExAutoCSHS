@@ -124,7 +124,7 @@ function EvalCSThrottle()
 end
  
 function ExAutoCSHS:Log(m)
-	DEFAULT_CHAT_FRAME:AddMessage(m)
+	--DEFAULT_CHAT_FRAME:AddMessage(m)
 end
 
 function ExAutoCSHS:Eval( )   ExAutoCSHS:Eval(0,0,0,0) end
